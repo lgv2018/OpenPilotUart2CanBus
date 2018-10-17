@@ -16,10 +16,10 @@ unsigned char data[3] = {0, 0, 0};
 
 byte countEPSsinceLastSend = 0;
 byte countMCUsinceLastSend = 0;
-byte EPSbyteBuf[8];
+byte EPSbyteBuf[4];
 bool EPSbyteLocation = false;
 byte EPSbyteOffset = 0;
-byte MCUbyteBuf[8];
+byte MCUbyteBuf[4];
 bool MCUbyteLocation = false;
 byte MCUbyteOffset = 0;
 
@@ -110,10 +110,18 @@ void printCanId(){
 }
 
 void MCUSerialIsAvail(){
+   byte tempbyte;
    MCUbyteBuf[MCUbyteOffset] = Serial.read();
+   while(MCUbyteOffset == 0){
+      tempbyte = MCUbyteBuf[MCUbyteOffset] >> 5;
+      
+      if(tempbyte == 1) break;
+      else MCUbyteBuf[MCUbyteOffset] = Serial.read();
+   }
+
    MCUbyteOffset++;
-   if(MCUbyteOffset == 8){
-      CAN.sendMsgBuf(0x200, 0, 8, MCUbyteBuf);
+   if(MCUbyteOffset == 4){
+      CAN.sendMsgBuf(0x200, 0, 4, MCUbyteBuf);
       MCUbyteOffset = 0;
    }
 }
