@@ -26,14 +26,15 @@ void setup()
   // SET MASK and FILTER!!!
   //init_Mask(unsigned char num, unsigned char ext, unsigned char ulData);
   //init_Filt(unsigned char num, unsigned char ext, unsigned char ulData);
-
+  // init_Filt(unsigned char num, unsigned char ext, unsigned char ulData);
+  //0x199 = B110011001  = DEC 409
 }
 
 void loop()
 {
   if (CAN_MSGAVAIL == CAN.checkReceive()) {
     if (CAN.getCanId() == OPcanId){
-      
+
 
     }
     // CAN.readMsgBuf(unsigned char len, unsigned char buf);
