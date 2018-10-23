@@ -2,7 +2,7 @@
 #include <SPI.h>
 
 const int SPI_CS_PIN = 10;   // the cs pin of the version after v1.1 is default to D9   // v0.9b and v1.0 is default D10
-const uint32_t OPcanId = 0x199;
+uint32_t OPcanId = 0x199;
 
 uint8_t len = 8;
 uint8_t buf[8];
